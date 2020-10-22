@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <!-- Default form register -->
+        <form class="text-center border col-5 border-0 shadow-sm rounded-lg border" id="display_1" action="/register"
+            method="post">
+            {% csrf_token %}
+            <p class="h4 mb-4 font">Sign up</p>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="form-row mb-4 ">
+                <div class="col">
+                    <!-- First name -->
+                    <input type="text" name="first_name" class="form-control " placeholder="First name">
+                </div>
+                <div class="col">
+                    <!-- Last name -->
+                    <input type="text" name="last_name" class="form-control" placeholder="Last name">
+                </div>
+            </div>
+
+            <!-- E-mail -->
+            <input type="email" name="email" class="form-control mb-4" placeholder="E-mail">
+
+            <!-- Password -->
+            <input type="text" name="password" class="form-control mb-4" placeholder="Password"
+                aria-describedby="defaultRegisterFormPasswordHelpBlock">
+
+
+            <!-- Confirm Password -->
+            <input type="text" name="confirm_password" class="form-control" placeholder="Confirm Password"
+                aria-describedby="defaultRegisterFormPhoneHelpBlock">
+
+
+            <!-- Sign up button -->
+            <button class="btn btn-info my-4 btn-block" type="submit">Sign up</button>
+
+        </form>
+
+        <!-- Default form login -->
+        <form class="text-center border w-25 p-3 shadow-sm border-0" id="display_2" action="/login" method="post">
+            {% csrf_token %}
+            <p class="h4 mb-4 font">Sign in</p>
+
+            <!-- Email -->
+            <input type="email" name="email" class="form-control mb-4" placeholder="E-mail">
+
+            <!-- Password -->
+            <input type="password" name="password" class="form-control mb-4" placeholder="Password">
+
+
+            <!-- Sign in button -->
+            <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+
+
+        </form>
+        <!-- Default form login -->
+    </div>
+</body>
+
+</html>

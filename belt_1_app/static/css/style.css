@@ -1,0 +1,54 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  outline: 0px;
+}
+#wrapper {
+  padding: 120px 0px 0px 60px;
+  height: 900px;
+  background-image: url("/static/img/new4.jpg");
+  background-image: content;
+  background-size: cover;
+}
+#bg-color {
+  background-color: rgb(255 239 239);
+}
+#display_1 {
+  display: inline-block;
+  margin-right: 50px;
+}
+#display_2 {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.error {
+  color: red;
+  list-style: none;
+}
+.success {
+  color: green;
+  margin-bottom: 20px;
+  list-style: none;
+}
+/* #container {
+    padding: 30px;
+    
+} */
+.font {
+  font-family: emoji;
+}
+#welcome-color {
+  color: white;
+  font-family: fantasy;
+}
+#logout-color {
+  color: white;
+  font-weight: 200;
+}
+
+#add-color {
+  color: white;
+
+}
+

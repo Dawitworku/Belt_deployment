@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body id="bg-color">
+    <div id="container">
+
+        <div class="container-fluid py-auto navbar-light mb-5 py-2" style="background-color: #2f3e4e;">
+
+            <div class="row">
+                <div class="nav-item col">
+                    <h7 class="navbar-brand" id="welcome-color">Welcome, {{user.first_name}}</h7>
+                    <a class="navbar-brand nav-item-color link-color ml-5" id="add-color" href="/addJob">Add A Job</a>
+                </div>
+
+                <div class=" col-md-2 col-sm-5 col-lg-1">
+                    <a class="navbar-brand" id="logout-color" href="/logout">Log Off</a>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-7 mr-4 col-md-8">
+
+                    <table class="table table-hover">
+                        <tr class="thead-light">
+                            <th>Job</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <!-- Listing all available Jobs -->
+                        {% for job in all_jobs %}
+                        <!-- Checking if the job is taken by someone else, we have to not show it in available jobs list -->
+                        {% if job.user_job.all|length == 0 %}
+                        <!-- user not in job.user_job.all -->
+                        <tr>
+                            <td>{{job.title}}</td>
+                            <td>{{job.location}}</td>
+                            <td class=""><a href="/view/{{job.id}}"><button type="button"
+                                        class="btn btn-outline-primary btn-sm">View</button></a></td>
+                            <td>
+                                <form action="/add_job/{{job.id}}" class="pimping_addd" job_id='{{job.id}}'
+                                    method="POST">
+                                    {% csrf_token %}
+                                    <!-- Adding a job to the user job list-->
+                                    <button type="submit" class="btn btn-outline-success btn-sm">add</button>
+                                </form>
+                            </td>
+                            {% if request.session.user_id  == job.user.id %}
+                            <td class=""><a href="/edit/{{job.id}}"><button type="submit"
+                                        class="btn btn-outline-primary btn-sm">edit</button></a></td>
+                            <td>
+                                <form action="/delete/{{job.id}}" method="POST" class="pt-0">
+                                    {% csrf_token %}
+                                    <!-- deleting a job-->
+                                    <button type="submit" class="btn btn-outline-warning btn-sm">cancel</button>
+                                </form>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </table>
+
+                </div>
+
+                <div class="col">
+
+                    <table class="table table-hover">
+                        <tr class="thead-light">
+                            <th>My Jobs</th>
+                            <th></th>
+                            <th>...</th>
+                            <th></th>
+                        </tr>
+                        {% for job in user.user_jobs.all %}
+                        <tr>
+                            <td>{{job.title}}</td>
+                            <td>
+                            <td><a href="/view/{{job.id}}">View</a></td>
+                            </td>
+                            <td class="pt-1">
+                                <form action="/delete/{{job.id}}" method="POST" class="pt-0">
+                                    {% csrf_token %}
+                                    <!-- deleting a job-->
+                                    <button id="btn-fade" type="submit" class="btn btn-link">Done</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Importing out JS files here -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'belt.js' %}"></script>
+
+
+</body>
+
+</html>

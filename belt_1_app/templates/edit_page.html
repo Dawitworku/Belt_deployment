@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add A Job</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col">
+
+                <h2 class="mb-5 mt-5">Edit Your Job Posting</h2>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <form action="/make_edit/{{job.id}}" method="POST">
+                    {% csrf_token %}
+                    <!-- Adding a book title-->
+                    <input type="text" name="title" value="{{job.title}}" class="form-control col-7" placeholder="Title">
+                    <div class="form-group">
+
+                        <textarea class="form-control col-7 mt-3" name="description" id="description"
+                            placeholder="Description">{{job.description}}</textarea>
+
+                        <input type="text" name="location" value="{{job.location}}" class="form-control col-7 mt-3" placeholder="Location">
+
+                        <button type="submit" class="btn btn-primary btn-sm mt-3" id="">Edit</button>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div class="col">
+                <a class="navbar-brand link-color" style="color: #340acb;" href="/welcome">Back</a>
+
+                <a class="navbar-brand link-color" style="color: #340acb;" href="/logout">Log Off</a>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

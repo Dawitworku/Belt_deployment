@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add A Job</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col">
+
+                <h2 class="mb-5 mt-5">Add a Job</h2>
+                <!-- Messages to display for validations -->
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <form action="/add" method="POST" id="add-form">
+                    {% csrf_token %}
+                    <!-- Adding a book title-->
+                    <input type="text" name="title" class="form-control col-7" placeholder="Title">
+                    <div class="form-group">
+
+                        <textarea class="form-control col-7 mt-3" name="description" id="description"
+                            placeholder="Description"></textarea>
+
+                        <input type="text" name="location" class="form-control col-7 mt-3" placeholder="Location">
+
+                        <button type="submit" class="btn btn-primary btn-sm mt-3" id="">Add</button>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div class="col">
+                <a class="navbar-brand link-color" style="color: #340acb;" href="/welcome">Back</a>
+
+                <a class="navbar-brand link-color" style="color: #340acb;" href="/logout">Log Off</a>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'belt.js' %}"></script>
+
+</body>
+
+</html>
